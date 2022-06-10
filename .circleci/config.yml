@@ -5,7 +5,7 @@ workflows:
   ci:
     jobs:
       - test
-      - build
+      # - build
 jobs:
   test:
     docker:
@@ -13,13 +13,13 @@ jobs:
     steps:
       - checkout
       - run: npm i -g pnpm
-      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm install --frozen-lockfile
       - run: pnpm test
-  build:
-    docker:
-      - image: cimg/node:lts
-    steps:
-      - checkout
-      - run: npm i -g pnpm
-      - run: pnpm install --no-frozen-lockfile
-      - run: pnpm build
+  # build:
+  #   docker:
+  #     - image: cimg/node:lts
+  #   steps:
+  #     - checkout
+  #     - run: npm i -g pnpm
+  #     - run: pnpm install --no-frozen-lockfile
+  #     - run: pnpm build
