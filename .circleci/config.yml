@@ -13,6 +13,7 @@ jobs:
     steps:
       - checkout
       - run: npm i -g pnpm
+      - run: pnpm i
       - run: pnpm test
   build:
     docker:
@@ -20,4 +21,5 @@ jobs:
     steps:
       - checkout
       - run: npm i -g pnpm
+      - run: pnpm i
       - run: pnpm build
