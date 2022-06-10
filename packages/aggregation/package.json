@@ -1,0 +1,26 @@
+{
+  "name": "@jour/data-aggregation",
+  "version": "0.0.1",
+  "description": "A util for aggregation data",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jouryjc",
+  "license": "MIT",
+  "dependencies": {
+    "dexie": "^3.2.2"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^3.1.7"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules
+coverage
+junit.xml
+temp
+dist
+.pnpm-debug.log

@@ -1,0 +1,19 @@
+{
+  "name": "axios-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jour/atomic-requests": "^0.0.1",
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "vite": "^2.9.9"
+  }
+}
