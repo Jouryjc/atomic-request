@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - run: npm i -g pnpm
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --lockfile-only
       - run: pnpm test
   # build:
   #   docker:
