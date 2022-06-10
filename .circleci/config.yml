@@ -12,8 +12,8 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
+      - node/install-packages
       - run: npm i -g pnpm
-      - run: pnpm install --lockfile-only
       - run: pnpm test
   # build:
   #   docker:
