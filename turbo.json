@@ -6,7 +6,7 @@
     "//#test": {
     },
     "//#build": {
-      "dependsOn": ["clean", "test"],
+      "dependsOn": ["clean"],
       "outputs": [
         "packages/request/dist/**",
         "packages/aggregation/dist/**"

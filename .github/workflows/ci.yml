@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [14.x, 16.x]
+        node: [16.x]
       fail-fast: false
 
     steps:
@@ -35,10 +35,12 @@ jobs:
         run: npm i -g @antfu/ni
 
       - name: Install
-        run: nci
+        run: pnpm install
 
-      - name: Test
-        run: nr test
+      # - name: Test
+      #   run: nr test
+      - name: Build
+        run: pnpm build
   # build:
   #     name: Build and Test
   #     timeout-minutes: 15

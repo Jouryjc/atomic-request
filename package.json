@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "build": "turbo run build",
+    "build": "rollup -c",
     "prepublish": "turbo run build",
     "clean": "rimraf packages/*/dist"
   },
@@ -54,7 +54,7 @@
     "turbo": "^1.2.16",
     "typescript": "^4.6.4",
     "vite": "^2.9.9",
-    "vitest": "^0.12.4"
+    "vitest": "^0.14.2"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpx lint-staged"

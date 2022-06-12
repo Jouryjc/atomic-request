@@ -5,6 +5,7 @@ import { CombineItem } from '../src/type'
 describe('data aggregation', () => {
   test('pass not array and length less than 2 array', () => {
     expect(combine('asd' as unknown as CombineItem[])).toEqual([])
+    
     expect(
       combine([
         {

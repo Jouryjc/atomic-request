@@ -4,7 +4,7 @@
  */
 
 import { setupServer } from 'msw/node'
-import type { DefaultRequestBody, PathParams, RestContext, RestRequest } from 'msw'
+import type { DefaultRequestBody, PathParams, ResponseTransformer, RestContext, RestRequest } from 'msw'
 import { rest } from 'msw'
 import { beforeAll, afterAll, afterEach } from 'vitest'
 
@@ -13,7 +13,7 @@ const defaultTextMessage = 'Hello World'
 const baseUrl = 'https://example.com'
 
 const commonTransformers = (req: RestRequest<DefaultRequestBody, PathParams>, _: any, ctx: RestContext) => {
-  const t = []
+  const t: ResponseTransformer<any, any>[] = []
   const qs = req.url.searchParams
 
   if (qs.get('delay')) t.push(ctx.delay(Number(qs.get('delay'))))
