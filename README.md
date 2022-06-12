@@ -2,7 +2,7 @@
 
 > 用于在浏览器做多个接口的流程编排和数据聚合
 
-![https://www.npmjs.com/package/@jour/atomic-requests](https://img.shields.io/npm/v/@jour/atomic-requests)  [![CI](https://github.com/Jouryjc/atomic-requests/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Jouryjc/atomic-requests/actions/workflows/ci.yml)
+![https://www.npmjs.com/package/@jour/atomic-requests](https://img.shields.io/npm/v/@jour/atomic-requests)  [![CI](https://github.com/Jouryjc/atomic-requests/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Jouryjc/atomic-requests/actions/workflows/ci.yml) [![codecov](https://codecov.io/gh/Jouryjc/atomic-requests/branch/main/graph/badge.svg?token=XWVEWXT29O)](https://codecov.io/gh/Jouryjc/atomic-requests)
 
 ## ✨ 功能
 
