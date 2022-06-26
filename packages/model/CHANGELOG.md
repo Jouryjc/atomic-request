@@ -1,4 +1,4 @@
-# @jour/data-aggregation
+# @jour/data-model
 
 ## 0.0.1
 
