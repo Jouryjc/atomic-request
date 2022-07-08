@@ -1,6 +1,7 @@
 export interface RequestFn {
   (...args): Promise<any>
   retryTimes?: number
+  retryInterval?: number[] | (() => number[])
 }
 
 export interface RequestConfig {
@@ -14,4 +15,6 @@ export interface RequestConfig {
   outputFn?: <T>(res: T) => Promise<any>
   /** 请求失败后重试的次数 */
   retryTimes?: number
+  /** 重试间隔 */
+  retryInterval?: number[] | (() => number[])
 }

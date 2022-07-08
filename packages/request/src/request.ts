@@ -3,10 +3,7 @@ import { IRequestOptions, validate } from './options'
 import { getDefaultOptions } from './options'
 import type { RequestFn, RequestConfig } from './type'
 
-export async function useRequest<T = RequestConfig | RequestFn>(
-  requestArr: T[],
-  options?: IRequestOptions,
-): Promise<any[]> {
+export async function atomicRequest<T = RequestConfig | RequestFn>(requestArr: T[], options?: IRequestOptions) {
   const config = Object.create(null)
   Object.assign(config, getDefaultOptions(), options ?? {})
 
@@ -15,14 +12,29 @@ export async function useRequest<T = RequestConfig | RequestFn>(
   const reqQueue = useQueue()
   const formattedReqArr = formatRuqestArr(requestArr)
 
-  if (options?.type === 'parallel') {
-    await reqQueue.parallelRun(formattedReqArr)
-  } else {
-    reqQueue.add(formattedReqArr.map(item => genAsyncFn(item, config)))
-    await reqQueue.run()
+  const run = async () => {
+    if (options?.type === 'parallel') {
+      await reqQueue.parallelRun(formattedReqArr)
+    } else {
+      reqQueue.add(formattedReqArr.map(item => genAsyncFn(item, config)))
+      await reqQueue.run()
+    }
+
+    const { result, resultMap } = reqQueue
+
+    return {
+      result,
+      resultMap,
+    }
   }
 
-  return reqQueue.result
+  if (options?.manual) {
+    return await {
+      run,
+    }
+  } else {
+    return await run()
+  }
 }
 
 export function formatRuqestArr(requestArr): RequestConfig[] {

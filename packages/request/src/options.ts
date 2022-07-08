@@ -3,10 +3,16 @@ import Ajv from 'ajv'
 const ajv = new Ajv()
 
 export interface IRequestOptions {
+  /* 熔断机制，失败就停止请求 */
   stopOnFailed?: boolean
+  /* 重试机制，请求失败可以重新请求 */
   retryOnFailed?: boolean
+  /* 请求类型，parallel 并行请求，serial 串行请求 */
   type?: 'parallel' | 'serial'
+  /* 开启请求依赖 */
   enableDepend?: boolean
+  /* 手动发起请求 */
+  manual?: boolean
 }
 
 export function validate(options) {
@@ -28,6 +34,10 @@ export function validate(options) {
         type: 'boolean',
         default: false,
       },
+      manual: {
+        type: 'boolean',
+        default: false,
+      },
     },
     required: ['stopOnFailed'],
     additionalProperties: false,
@@ -44,5 +54,6 @@ export function getDefaultOptions(): IRequestOptions {
     retryOnFailed: false,
     type: 'serial',
     enableDepend: false,
+    manual: false,
   }
 }
