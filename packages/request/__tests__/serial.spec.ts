@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { useRequest } from '../src/index'
+import { atomicRequest } from '../src/index'
 import type { RequestFn } from '../src'
 import './mockServer'
 
@@ -43,13 +43,13 @@ describe('serial process', () => {
   })
 
   test('A->B->C request success, fetch must be called 3 times', async () => {
-    await useRequest([A, B, C])
+    await atomicRequest([A, B, C])
 
     expect(fetchSpy).toBeCalledTimes(3)
   })
 
   test('A->B->C request success, get ok result', async () => {
-    const [aRes, bRes, cRes] = await useRequest([A, B, C])
+    const [aRes, bRes, cRes] = await atomicRequest([A, B, C])
 
     expect(aRes.ok).toBe(true)
     expect(bRes.ok).toBe(true)
@@ -67,7 +67,7 @@ describe('serial process', () => {
   test('A->B->C, B request failed, C cant make a request', async () => {
     B = () => selfFetch()
 
-    await useRequest([A, B, C])
+    await atomicRequest([A, B, C])
 
     expect(fetchSpy).toHaveBeenCalledTimes(2)
   })
@@ -75,7 +75,7 @@ describe('serial process', () => {
   test('A->B->C, B request failed, get A and B result', async () => {
     B = () => selfFetch()
 
-    const [aRes, bRes] = await useRequest([A, B, C])
+    const [aRes, bRes] = await atomicRequest([A, B, C])
     const aText = await aRes.text()
 
     expect(aText).toBe('A')
@@ -85,7 +85,7 @@ describe('serial process', () => {
   test('A->B->C, B request failed but resolve result, C can make a request', async () => {
     B = () => fetch('https://example.com?status=400')
 
-    await useRequest([A, B, C])
+    await atomicRequest([A, B, C])
 
     expect(fetchSpy).toHaveBeenCalledTimes(3)
   })
@@ -93,7 +93,7 @@ describe('serial process', () => {
   test('A->B->C, B request failed, get A and B result', async () => {
     B = () => fetch('https://example.com?status=400')
 
-    const [aRes, bRes, cRes] = await useRequest([A, B, C])
+    const [aRes, bRes, cRes] = await atomicRequest([A, B, C])
     const aText = await aRes.text()
     const bText = await bRes.status
     const cText = await cRes.text()
@@ -106,7 +106,7 @@ describe('serial process', () => {
   test('A->B->C, B request failed and get rejected result, C still make a request', async () => {
     B = () => selfFetch()
 
-    await useRequest([A, B, C], {
+    await atomicRequest([A, B, C], {
       stopOnFailed: false,
       retryOnFailed: false,
     })
@@ -118,7 +118,7 @@ describe('serial process', () => {
     B = () => selfFetch(true)
     B.retryTimes = 1
 
-    await useRequest([A, B, C], {
+    await atomicRequest([A, B, C], {
       stopOnFailed: false,
       retryOnFailed: true,
     })
@@ -148,7 +148,7 @@ describe('serial process', () => {
     }
     B.retryTimes = 3
 
-    const [aRes, bRes, cRes] = await useRequest([A, B, C], {
+    const [aRes, bRes, cRes] = await atomicRequest([A, B, C], {
       stopOnFailed: false,
       retryOnFailed: true,
     })

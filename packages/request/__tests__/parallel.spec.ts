@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { useRequest } from '../src/index'
+import { atomicRequest } from '../src/index'
 import type { RequestFn } from '../src/index'
 import './mockServer'
 
@@ -42,7 +42,7 @@ describe('parallel process', () => {
   })
 
   test('A, B, and C request success at the same time', async () => {
-    await useRequest([A, B, C], {
+    await atomicRequest([A, B, C], {
       type: 'parallel',
     })
 
@@ -50,7 +50,7 @@ describe('parallel process', () => {
   })
 
   test('A, B, and C request success at the same time, get result', async () => {
-    const result = await useRequest([A, B, C], {
+    const result = await atomicRequest([A, B, C], {
       type: 'parallel',
     })
 
@@ -61,7 +61,7 @@ describe('parallel process', () => {
   test('A, B success but C fail', async () => {
     C = () => selfFetch()
 
-    const result = await useRequest([A, B, C], {
+    const result = await atomicRequest([A, B, C], {
       type: 'parallel',
     })
 
@@ -73,7 +73,7 @@ describe('parallel process', () => {
     C = () => selfFetch()
     C.retryTimes = retryTimes
 
-    const result = await useRequest([A, B, C], {
+    const result = await atomicRequest([A, B, C], {
       type: 'parallel',
     })
 

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { useRequest } from '../src/index'
+import { atomicRequest } from '../src/index'
 import type { RequestFn, RequestConfig } from '../src'
 import './mockServer'
 
@@ -23,7 +23,7 @@ describe('params depend', () => {
       return fetch(`https://example.com?json=${JSON.stringify(params)}`)
     }
 
-    const [resA, resB] = await useRequest<RequestConfig>([
+    const [resA, resB] = await atomicRequest<RequestConfig>([
       {
         name: 'A',
         request: A,
@@ -54,7 +54,7 @@ describe('params depend', () => {
   })
 
   test('A->B->C, pass the result of A and B to C', async () => {
-    const [resA, resB, resC] = await useRequest<RequestConfig>([
+    const [resA, resB, resC] = await atomicRequest<RequestConfig>([
       {
         name: 'A',
         request: A,
