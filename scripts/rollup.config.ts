@@ -61,54 +61,6 @@ const configs: RollupOptions[] = [
 
     external: ['ajv'],
   },
-
-  {
-    input: resolve(__dirname, '../packages/aggregation/src/index.ts'),
-
-    plugins: [esbuildPlugin],
-
-    output: [
-      {
-        file: resolve(__dirname, '../packages/aggregation/dist/index.mjs'),
-        format: 'es',
-      },
-      {
-        file: resolve(__dirname, '../packages/aggregation/dist/index.cjs'),
-        format: 'cjs',
-      },
-      {
-        file: resolve(__dirname, '../packages/aggregation/dist/index.iife.min.js'),
-        format: 'iife',
-        extend: true,
-        name: 'atomicAggregation',
-        globals: {
-          dexie: 'Dexie',
-        },
-        plugins: [
-          esbuildMinifer({
-            minify: true,
-          }),
-        ],
-      },
-    ],
-
-    external: ['dexie'],
-  },
-
-  {
-    input: resolve(__dirname, '../packages/aggregation/src/index.ts'),
-
-    plugins: [dts()],
-
-    output: [
-      {
-        file: resolve(__dirname, '../packages/aggregation/dist/index.d.ts'),
-        format: 'es',
-      },
-    ],
-
-    external: ['dexie'],
-  },
 ]
 
 export default configs
