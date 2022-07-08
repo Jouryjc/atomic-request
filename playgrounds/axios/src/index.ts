@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { useRequest } from '@jour/atomic-requests'
+import { parallelDemo } from './parallel'
+import { serialDemo } from './serial'
 
-
-axios.get('')
+serialDemo()
