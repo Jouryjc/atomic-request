@@ -20,6 +20,6 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "@sxf/atomic-request": "^0.0.2"
+    "@jour/atomic-request": "^0.0.1"
   }
 }

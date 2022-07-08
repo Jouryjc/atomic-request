@@ -1,4 +1,4 @@
-import { atomicRequest } from '@sxf/atomic-request'
+import { atomicRequest } from '@jour/atomic-request'
 
 const req1 = () => fetch('http://127.0.0.1:9999/axios-success')
 const req2 = () => fetch('http://127.0.0.1:9999/axios-success')

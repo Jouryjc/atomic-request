@@ -1,4 +1,4 @@
-# Request
+# Atomic Request
 
 > 用于在浏览器做多个接口的流程编排和数据聚合
 

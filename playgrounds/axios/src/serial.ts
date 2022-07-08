@@ -1,5 +1,5 @@
 import { req1, req2, req3, req4, failedReq, failedReq2 } from './common'
-import { atomicRequest } from '@sxf/atomic-request'
+import { atomicRequest } from '@jour/atomic-request'
 
 export async function serialDemo() {
   // const result1 = await atomicRequest([
