@@ -9,8 +9,6 @@ export interface IRequestOptions {
   retryOnFailed?: boolean
   /* 请求类型，parallel 并行请求，serial 串行请求 */
   type?: 'parallel' | 'serial'
-  /* 开启请求依赖 */
-  enableDepend?: boolean
   /* 手动发起请求 */
   manual?: boolean
 }

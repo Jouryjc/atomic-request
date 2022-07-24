@@ -10,7 +10,7 @@
     "build": "rollup -c",
     "prepublish": "turbo run build",
     "clean": "rimraf packages/*/dist",
-    "docs:dev": "vitepress --port 3333 --open",
+    "docs:dev": "vitepress dev docs --port 3000 --host 0.0.0.0",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs"
   },

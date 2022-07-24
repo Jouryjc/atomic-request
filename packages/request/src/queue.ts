@@ -222,10 +222,10 @@ async function getDependOnRes(
   let reqParams: Record<string, any> = Object.create(null)
 
   for await (let depend of dependsOn) {
-    const { outputFn } = requestMap.get(depend) ?? {}
+    const { dependentParams } = requestMap.get(depend) ?? {}
 
-    if (outputFn) {
-      const res = await outputFn(resultMap.get(depend))
+    if (dependentParams) {
+      const res = await dependentParams(resultMap.get(depend))
 
       // todo 判断res数据类型，做结果拼接
       if (typeof res === 'string') {
@@ -235,6 +235,9 @@ async function getDependOnRes(
       } else if (typeof res === 'object' && res !== null) {
         Object.assign(reqParams, res)
       }
+    } else {
+      // 不配置 dependentParams 输出格式时，默认导出当前结果集
+      Object.assign(reqParams, resultMap.get(depend))
     }
   }
 

@@ -27,7 +27,7 @@ describe('params depend', () => {
       {
         name: 'A',
         request: A,
-        outputFn: async res => {
+        dependentParams: async res => {
           return {
             B: 'B',
           }
@@ -58,7 +58,7 @@ describe('params depend', () => {
       {
         name: 'A',
         request: A,
-        outputFn: async res => {
+        dependentParams: async res => {
           return {
             B: 'B',
           }
@@ -67,7 +67,7 @@ describe('params depend', () => {
       {
         name: 'B',
         request: B,
-        outputFn: async res => {
+        dependentParams: async res => {
           return {
             C: 'C',
           }

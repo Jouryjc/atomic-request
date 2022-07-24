@@ -12,7 +12,7 @@ export interface RequestConfig {
   /** 依赖哪些接口的结果 */
   dependsOn?: string[]
   /** request的请求结果，用于获取格式化结果 */
-  outputFn?: <T>(res: T) => Promise<any>
+  dependentParams?: <T>(res: T) => Promise<any>
   /** 请求失败后重试的次数 */
   retryTimes?: number
   /** 重试间隔 */

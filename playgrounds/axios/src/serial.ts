@@ -52,7 +52,7 @@ export async function serialDemo() {
   //     {
   //       name: 'first',
   //       request: req1,
-  //       async outputFn(res) {
+  //       async dependentParams(res) {
   //         return await res.data
   //       },
   //     },
@@ -60,7 +60,7 @@ export async function serialDemo() {
   //       name: 'second',
   //       dependsOn: ['first'],
   //       request: req4,
-  //       async outputFn(res) {
+  //       async dependentParams(res) {
   //         return await res.data
   //       },
   //     },
