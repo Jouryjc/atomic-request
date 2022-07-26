@@ -1,5 +1,5 @@
 {
-  "name": "@jour/atomic-requests",
+  "name": "atomic-requests",
   "version": "0.0.1",
   "description": "A library to control the request flow",
   "main": "./dist/index.cjs",

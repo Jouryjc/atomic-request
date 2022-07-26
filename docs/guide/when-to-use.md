@@ -3,12 +3,12 @@
 ## 串行
 - 需依赖 N 个接口 `按顺序调用` 来断定最终的处理结果，且接口间可能存在数据依赖。
 
-![serial](../images/serial.jpg)
+![serial](/serial.png)
 
 ## 并行
 - 需 `同时` 调用 N 个接口，并通过 N 个接口结果集做聚合等数据处理。
 
-![parallel](../images/parallel.jpg)
+![parallel](/parallel.png)
 
 ## 常用业务场景
 

@@ -1,5 +1,5 @@
 {
-  "name": "@jour/data-model",
+  "name": "data-model",
   "version": "0.0.1",
   "description": "A util for aggregation data",
   "main": "./dist/index.cjs",

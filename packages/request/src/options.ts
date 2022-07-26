@@ -28,10 +28,6 @@ export function validate(options) {
       type: {
         enum: ['parallel', 'serial'],
       },
-      enableDepend: {
-        type: 'boolean',
-        default: false,
-      },
       manual: {
         type: 'boolean',
         default: false,
@@ -51,7 +47,6 @@ export function getDefaultOptions(): IRequestOptions {
     stopOnFailed: true,
     retryOnFailed: false,
     type: 'serial',
-    enableDepend: false,
     manual: false,
   }
 }
