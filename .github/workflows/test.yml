@@ -23,7 +23,7 @@ jobs:
         run: pnpm install
 
       - name: Test
-        run: pnpm test
+        run: pnpm test:ci
 
       - uses: actions/checkout@master
       - uses: codecov/codecov-action@v2

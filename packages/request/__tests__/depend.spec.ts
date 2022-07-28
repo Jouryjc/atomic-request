@@ -8,7 +8,7 @@ let A = () => fetch(`https://example.com?json=${JSON.stringify({ hello: 'hello' 
 let B: RequestFn = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
 let C = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
 
-describe('params depend', () => {
+describe.only('params depend', () => {
   beforeEach(() => {
     fetchSpy = vi.spyOn(globalThis, 'fetch')
 
@@ -18,12 +18,14 @@ describe('params depend', () => {
     B = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
   })
 
-  test('A->B, pass the result of A to B', async () => {
+  test.only('A->B, pass the result of A to B', async () => {
     B = params => {
       return fetch(`https://example.com?json=${JSON.stringify(params)}`)
     }
 
-    const [resA, resB] = await atomicRequest<RequestConfig>([
+    const {
+      result: [resA, resB],
+    } = await atomicRequest<RequestConfig>([
       {
         name: 'A',
         request: A,
@@ -54,7 +56,9 @@ describe('params depend', () => {
   })
 
   test('A->B->C, pass the result of A and B to C', async () => {
-    const [resA, resB, resC] = await atomicRequest<RequestConfig>([
+    const {
+      result: [resA, resB, resC],
+    } = await atomicRequest<RequestConfig>([
       {
         name: 'A',
         request: A,

@@ -17,19 +17,8 @@ export default defineConfig({
       { text: '示例', link: '/guide/how-to-use', activeMatch: '/guide/how-to-use' },
     ],
 
-    // sidebar: {
-    //   '/guide/': {
-    //     text: ''
-    //   }
-    // },
-
     socialLinks: [{ icon: 'github', link: 'https://github.com/Jouryjc/atomic-requests' }],
 
     lastUpdatedText: 'Updated Date',
-
-    // footer: {
-    //   message: 'Released under the MIT License.',
-    //   copyright: 'Copyright © 2019-present Jouryjc'
-    // }
   },
 })

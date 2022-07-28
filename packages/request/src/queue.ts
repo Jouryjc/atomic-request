@@ -7,7 +7,7 @@ const requestMap = new Map<string, RequestConfig>()
 
 export const useQueue = () => {
   const list: ReturnGenAsyncFn[] = []
-  let result: Promise<any>[] = []
+  let result = []
 
   const resultMap = new Map()
 
@@ -117,7 +117,7 @@ export const useQueue = () => {
 export const genAsyncFn = (requestItem: RequestConfig, options?: IRequestOptions) => {
   requestMap.set(requestItem.name, requestItem)
 
-  return async ({ next, requestMap, resultMap, stop }) => {
+  return async ({ next, requestMap, resultMap, stop }): ReturnType<RequestConfig['request']> => {
     let { request, retryTimes = 1, retryInterval, name, dependsOn = [] } = requestItem
     let reqParams: null | Record<string, any> = null
 

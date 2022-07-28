@@ -6,9 +6,9 @@ export default defineConfig({
     clearMocks: true,
     environment: 'jsdom',
     setupFiles: [resolve(__dirname, 'packages/.test/polyfillFetch.ts'), 'fake-indexeddb/auto'],
-    watch: false,
+    watch: process.env.TEST_ENV !== 'ci',
     coverage: {
-      enabled: true,
+      enabled: process.env.TEST_ENV === 'ci',
       reporter: ['json', 'lcov', 'text', 'cobertura'],
       excludeNodeModules: true,
       exclude: [],

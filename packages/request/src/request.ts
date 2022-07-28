@@ -1,10 +1,10 @@
 import { useQueue, genAsyncFn } from './queue'
-import { IRequestOptions, validate } from './options'
+import { validate } from './options'
 import { getDefaultOptions } from './options'
-import type { RequestFn, RequestConfig } from './type'
+import type { RequestAllConfig, RequestFn, RequestConfig, Return, IRequestOptions } from './type'
 
-export async function atomicRequest<T = RequestConfig | RequestFn>(requestArr: T[], options?: IRequestOptions) {
-  const config = Object.create(null)
+export async function atomicRequest<T extends RequestConfig>(requestArr: T[], options?: IRequestOptions) {
+  const config: RequestAllConfig = Object.create(null)
   Object.assign(config, getDefaultOptions(), options ?? {})
 
   validate(config)
@@ -12,8 +12,8 @@ export async function atomicRequest<T = RequestConfig | RequestFn>(requestArr: T
   const reqQueue = useQueue()
   const formattedReqArr = formatRuqestArr(requestArr)
 
-  const run = async () => {
-    if (options?.type === 'parallel') {
+  const run = async (): Promise<Return<T[]>> => {
+    if (config?.type === 'parallel') {
       await reqQueue.parallelRun(formattedReqArr)
     } else {
       reqQueue.add(formattedReqArr.map(item => genAsyncFn(item, config)))
@@ -28,7 +28,7 @@ export async function atomicRequest<T = RequestConfig | RequestFn>(requestArr: T
     }
   }
 
-  if (options?.manual) {
+  if (config.manual === true) {
     return await {
       run,
     }

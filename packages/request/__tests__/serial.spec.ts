@@ -43,13 +43,41 @@ describe('serial process', () => {
   })
 
   test('A->B->C request success, fetch must be called 3 times', async () => {
-    await atomicRequest([A, B, C])
+    await atomicRequest([
+      {
+        request: A,
+        name: 'A',
+      },
+      {
+        request: B,
+        name: 'B',
+      },
+      {
+        request: C,
+        name: 'C',
+      },
+    ])
 
     expect(fetchSpy).toBeCalledTimes(3)
   })
 
   test('A->B->C request success, get ok result', async () => {
-    const [aRes, bRes, cRes] = await atomicRequest([A, B, C])
+    const {
+      result: [aRes, bRes, cRes],
+    } = await atomicRequest([
+      {
+        request: A,
+        name: 'A',
+      },
+      {
+        request: B,
+        name: 'B',
+      },
+      {
+        request: C,
+        name: 'C',
+      },
+    ])
 
     expect(aRes.ok).toBe(true)
     expect(bRes.ok).toBe(true)
@@ -75,7 +103,22 @@ describe('serial process', () => {
   test('A->B->C, B request failed, get A and B result', async () => {
     B = () => selfFetch()
 
-    const [aRes, bRes] = await atomicRequest([A, B, C])
+    const {
+      result: [aRes, bRes],
+    } = await atomicRequest([
+      {
+        request: A,
+        name: 'A',
+      },
+      {
+        request: B,
+        name: 'B',
+      },
+      {
+        request: C,
+        name: 'C',
+      },
+    ])
     const aText = await aRes.text()
 
     expect(aText).toBe('A')
@@ -85,7 +128,20 @@ describe('serial process', () => {
   test('A->B->C, B request failed but resolve result, C can make a request', async () => {
     B = () => fetch('https://example.com?status=400')
 
-    await atomicRequest([A, B, C])
+    await atomicRequest([
+      {
+        request: A,
+        name: 'A',
+      },
+      {
+        request: B,
+        name: 'B',
+      },
+      {
+        request: C,
+        name: 'C',
+      },
+    ])
 
     expect(fetchSpy).toHaveBeenCalledTimes(3)
   })
@@ -93,7 +149,23 @@ describe('serial process', () => {
   test('A->B->C, B request failed, get A and B result', async () => {
     B = () => fetch('https://example.com?status=400')
 
-    const [aRes, bRes, cRes] = await atomicRequest([A, B, C])
+    const {
+      result: [aRes, bRes, cRes],
+    } = await atomicRequest([
+      {
+        request: A,
+        name: 'A',
+      },
+      {
+        request: B,
+        name: 'B',
+      },
+      {
+        request: C,
+        name: 'C',
+      },
+    ])
+
     const aText = await aRes.text()
     const bText = await bRes.status
     const cText = await cRes.text()
@@ -106,22 +178,54 @@ describe('serial process', () => {
   test('A->B->C, B request failed and get rejected result, C still make a request', async () => {
     B = () => selfFetch()
 
-    await atomicRequest([A, B, C], {
-      stopOnFailed: false,
-      retryOnFailed: false,
-    })
+    await atomicRequest(
+      [
+        {
+          request: A,
+          name: 'A',
+        },
+        {
+          request: B,
+          name: 'B',
+        },
+        {
+          request: C,
+          name: 'C',
+        },
+      ],
+      {
+        stopOnFailed: false,
+        retryOnFailed: false,
+      },
+    )
 
     expect(fetchSpy).toHaveBeenCalledTimes(3)
   })
 
   test('A->B->C, B request failed and get rejected result, but B can retry request and success, so C can make request', async () => {
     B = () => selfFetch(true)
-    B.retryTimes = 1
 
-    await atomicRequest([A, B, C], {
-      stopOnFailed: false,
-      retryOnFailed: true,
-    })
+    await atomicRequest(
+      [
+        {
+          request: A,
+          name: 'A',
+        },
+        {
+          request: B,
+          name: 'B',
+          retryTimes: 1,
+        },
+        {
+          request: C,
+          name: 'C',
+        },
+      ],
+      {
+        stopOnFailed: false,
+        retryOnFailed: true,
+      },
+    )
 
     expect(fetchSpy).toHaveBeenCalledTimes(4)
   })
@@ -146,12 +250,30 @@ describe('serial process', () => {
         }
       })
     }
-    B.retryTimes = 3
 
-    const [aRes, bRes, cRes] = await atomicRequest([A, B, C], {
-      stopOnFailed: false,
-      retryOnFailed: true,
-    })
+    const {
+      result: [aRes, bRes, cRes],
+    } = await atomicRequest(
+      [
+        {
+          request: A,
+          name: 'A',
+        },
+        {
+          request: B,
+          name: 'B',
+          retryTimes: 3,
+        },
+        {
+          request: C,
+          name: 'C',
+        },
+      ],
+      {
+        stopOnFailed: false,
+        retryOnFailed: true,
+      },
+    )
 
     expect(fetchSpy).toHaveBeenCalledTimes(6)
 
