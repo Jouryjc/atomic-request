@@ -8,7 +8,7 @@ let A = () => fetch(`https://example.com?json=${JSON.stringify({ hello: 'hello' 
 let B: RequestFn = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
 let C = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
 
-describe.only('params depend', () => {
+describe('params depend', () => {
   beforeEach(() => {
     fetchSpy = vi.spyOn(globalThis, 'fetch')
 
@@ -18,7 +18,7 @@ describe.only('params depend', () => {
     B = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
   })
 
-  test.only('A->B, pass the result of A to B', async () => {
+  test('A->B, pass the result of A to B', async () => {
     B = params => {
       return fetch(`https://example.com?json=${JSON.stringify(params)}`)
     }

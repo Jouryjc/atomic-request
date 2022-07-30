@@ -65,6 +65,6 @@
     "vue": "^3.2.37"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpx lint-staged"
+    "pre-commit": "pnpm exec lint-staged"
   }
 }
