@@ -7,7 +7,7 @@ const requestMap = new Map<string, RequestConfig>()
 
 export const useQueue = () => {
   const list: ReturnGenAsyncFn[] = []
-  let result = []
+  let result: any[] = []
 
   const resultMap = new Map()
 

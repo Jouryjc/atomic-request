@@ -12,7 +12,7 @@ export async function atomicRequest<T extends RequestConfig>(requestArr: T[], op
   const reqQueue = useQueue()
   const formattedReqArr = formatRuqestArr(requestArr)
 
-  const run = async (): Promise<Return<T[]>> => {
+  const run = async (): Promise<Return<any[]>> => {
     if (config?.type === 'parallel') {
       await reqQueue.parallelRun(formattedReqArr)
     } else {

@@ -1,5 +1,5 @@
 {
-  "name": "@jour/request",
+  "name": "atomic-request",
   "private": true,
   "version": "0.0.1",
   "description": "A library for aggregating API requests",
