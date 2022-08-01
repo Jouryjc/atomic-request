@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { atomicRequest } from '../src/index'
-import type { RequestFn, RequestConfig } from '../src'
+import type { RequestConfig } from '../src'
 import './mockServer'
 
 let fetchSpy = vi.spyOn(globalThis, 'fetch')
 let A = () => fetch(`https://example.com?json=${JSON.stringify({ hello: 'hello' })}`)
-let B: RequestFn = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
+let B = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
 let C = params => fetch(`https://example.com?json=${JSON.stringify(params)}`)
 
 describe('params depend', () => {

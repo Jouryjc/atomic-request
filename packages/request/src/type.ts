@@ -1,9 +1,3 @@
-export interface RequestFn {
-  (...args): Promise<any>
-  retryTimes?: number
-  retryInterval?: number[] | (() => number[])
-}
-
 /* 对于整个请求的全局配置 */
 export interface RequestAllConfig {
   /* 熔断机制，失败就停止请求 */

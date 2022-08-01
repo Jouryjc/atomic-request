@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { atomicRequest } from '../src/index'
-import type { RequestFn } from '../src/index'
 import './mockServer'
 
 let fetchSpy = vi.spyOn(globalThis, 'fetch')
 let A = () => fetch('https://example.com?text=A')
 let B = () => fetch('https://example.com?text=B')
-let C: RequestFn = () => fetch('https://example.com?text=C')
+let C = () => fetch('https://example.com?text=C')
 let isRetry = false
 let retryTimes = 3
 

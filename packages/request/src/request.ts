@@ -1,7 +1,7 @@
 import { useQueue, genAsyncFn } from './queue'
 import { validate } from './options'
 import { getDefaultOptions } from './options'
-import type { RequestAllConfig, RequestFn, RequestConfig, Return, IRequestOptions } from './type'
+import type { RequestAllConfig, RequestConfig, Return, IRequestOptions } from './type'
 
 export async function atomicRequest<T extends RequestConfig>(requestArr: T[], options?: IRequestOptions) {
   const config: RequestAllConfig = Object.create(null)
@@ -42,19 +42,5 @@ export function formatRuqestArr(requestArr): RequestConfig[] {
     return []
   }
 
-  let formattedReqArr = requestArr.map(requestItem => {
-    if (typeof requestItem === 'function') {
-      const req: RequestConfig = {
-        name: requestItem.name,
-        request: requestItem as unknown as RequestFn,
-        retryTimes: (requestItem as unknown as RequestFn)?.retryTimes ?? 0,
-      }
-
-      return req
-    }
-
-    return requestItem
-  })
-
-  return formattedReqArr
+  return requestArr
 }

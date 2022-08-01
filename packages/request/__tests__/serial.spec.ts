@@ -1,11 +1,10 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { atomicRequest } from '../src/index'
-import type { RequestFn } from '../src'
 import './mockServer'
 
 let fetchSpy = vi.spyOn(globalThis, 'fetch')
 let A = () => fetch('https://example.com?text=A')
-let B: RequestFn = () => fetch('https://example.com?text=B')
+let B = () => fetch('https://example.com?text=B')
 let C = () => fetch('https://example.com?text=C')
 let isRetry = false
 let retryTimes = 3
@@ -95,7 +94,20 @@ describe('serial process', () => {
   test('A->B->C, B request failed, C cant make a request', async () => {
     B = () => selfFetch()
 
-    await atomicRequest([A, B, C])
+    await atomicRequest([
+      {
+        name: 'A',
+        request: A
+      },
+      {
+        name: 'B',
+        request: B
+      },
+      {
+        name: 'C',
+        request: C
+      }
+    ])
 
     expect(fetchSpy).toHaveBeenCalledTimes(2)
   })
